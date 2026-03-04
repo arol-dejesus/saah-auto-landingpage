@@ -179,7 +179,7 @@ const DownloadPopup = ({ isOpen, onClose }) => {
 
             <button 
               onClick={onClose} 
-              className="w-full btn-dark py-2.5 rounded-lg text-[11px] font-bold tracking-widest mb-3"
+              className="w-full btn-primary py-2.5 rounded-lg text-[11px] font-bold tracking-widest mb-3"
             >
               C'est noté
             </button>
