@@ -177,14 +177,26 @@ const Countdown = () => {
 
 // ── Popup ──
 const DownloadPopup = ({ isOpen, onClose }) => {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
   if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email) {
+      setSubmitted(true);
+      // Logic for email storage could go here
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-onyx/40 backdrop-blur-xl animate-in fade-in duration-500" onClick={onClose} />
       
-      <Reveal direction="up" className="relative w-full max-w-[340px] bg-white/95 backdrop-blur-2xl rounded-[2rem] p-1 shadow-2xl border border-white overflow-hidden">
-        <div className="relative bg-white rounded-[1.8rem] p-5 border border-border-light overflow-hidden text-center">
-          <div className="absolute top-0 right-0 p-3">
+      <Reveal direction="up" className="relative w-full max-w-[360px] bg-white/95 backdrop-blur-2xl rounded-[2.5rem] p-1 shadow-2xl border border-white overflow-hidden">
+        <div className="relative bg-white rounded-[2.3rem] p-6 border border-border-light overflow-hidden text-center">
+          <div className="absolute top-0 right-0 p-4">
             <button onClick={onClose} className="p-1.5 hover:bg-pearl rounded-full transition-all group">
               <X className="w-4 h-4 text-text-muted" />
             </button>
@@ -197,29 +209,62 @@ const DownloadPopup = ({ isOpen, onClose }) => {
 
             <SectionLabel>Lancement Officiel</SectionLabel>
             
-            <h3 className="text-xl font-bold text-onyx mb-1 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+            <h3 className="text-xl font-bold text-onyx mb-2 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               L'excellence se <span className="italic text-gold">prépare.</span>
             </h3>
 
-            <p className="text-text-secondary text-[12px] font-light leading-snug mb-4 max-w-[260px]">
-              Nous peaufinons chaque détail pour que votre expérience SAAH soit à la hauteur de vos exigences les plus élevées.
-            </p>
+            {!submitted ? (
+              <>
+                <p className="text-text-secondary text-[11px] font-light leading-snug mb-4 max-w-[260px]">
+                  Laissez votre email pour être parmi les premiers à accéder à l'expérience SAAH.
+                </p>
 
-            <div className="w-full bg-pearl/50 rounded-2xl p-4 border border-border-light mt-0 mb-4">
-              <div className="text-lg font-black text-gold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>10 AVRIL 2026</div>
-              <div className="w-full h-px bg-border-light mb-3" />
-              <Countdown />
-            </div>
+                <div className="w-full bg-pearl/50 rounded-2xl p-4 border border-border-light mb-5">
+                  <div className="text-lg font-black text-gold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>10 AVRIL 2026</div>
+                  <div className="w-full h-px bg-border-light mb-3" />
+                  <Countdown />
+                </div>
 
-            <button 
-              onClick={onClose} 
-              className="w-full btn-primary py-2.5 rounded-lg text-[11px] font-bold tracking-widest mb-2"
-            >
-              C'est noté
-            </button>
-            <p className="text-[8px] text-text-muted font-medium uppercase tracking-widest">
-              ◆ Accès privilégié ◆
-            </p>
+                <form onSubmit={handleSubmit} className="w-full space-y-2">
+                  <input 
+                    type="email" 
+                    required 
+                    placeholder="votre@email.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-pearl border border-border-light text-[13px] focus:outline-none focus:border-gold/50 transition-colors"
+                  />
+                  <button 
+                    type="submit"
+                    className="w-full btn-primary py-3 rounded-xl text-[12px] font-bold tracking-widest"
+                  >
+                    M'informer du lancement
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="py-8 animate-in zoom-in duration-500">
+                <div className="w-12 h-12 bg-emerald-tint rounded-full flex items-center justify-center mb-4 mx-auto border border-emerald/20">
+                  <ShieldCheck className="w-6 h-6 text-emerald-dark" />
+                </div>
+                <h4 className="text-lg font-bold text-onyx mb-2">C'est noté !</h4>
+                <p className="text-text-secondary text-[12px] font-light">
+                  Vous recevrez une invitation exclusive le jour J.
+                </p>
+                <button 
+                  onClick={onClose}
+                  className="mt-6 text-gold text-[11px] font-bold uppercase tracking-widest hover:text-gold-dark transition-colors"
+                >
+                  Fermer
+                </button>
+              </div>
+            )}
+
+            {!submitted && (
+              <p className="text-[8px] text-text-muted font-medium uppercase tracking-widest mt-4">
+                ◆ Accès privilégié garanti ◆
+              </p>
+            )}
           </div>
         </div>
       </Reveal>
