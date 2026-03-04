@@ -135,6 +135,46 @@ const PhoneMockup = ({ screenType = "home", className = "" }) => (
   </div>
 );
 
+// ── Countdown Component ──
+const Countdown = () => {
+  const targetDate = new Date('2026-04-10T00:00:00');
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        clearInterval(timer);
+        return;
+      }
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        mins: Math.floor((diff / 1000 / 60) % 60),
+        secs: Math.floor((diff / 1000) % 60)
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="flex gap-1 justify-center mb-6">
+      {[
+        { val: timeLeft.days, label: "Jrs" },
+        { val: timeLeft.hours, label: "Hrs" },
+        { val: timeLeft.mins, label: "Min" },
+        { val: timeLeft.secs, label: "Sec" }
+      ].map((item, i) => (
+        <div key={i} className={`rounded-xl px-2.5 py-1.5 border min-w-[54px] ${i === 0 ? 'bg-gold-tint border-gold/20' : 'bg-pearl border-border-light'}`}>
+          <div className={`text-base font-bold leading-none ${i === 0 ? 'text-gold' : 'text-onyx'}`}>{String(item.val).padStart(2, '0')}</div>
+          <div className="text-[7px] uppercase tracking-widest text-text-muted font-bold mt-1">{item.label}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // ── Popup ──
 const DownloadPopup = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -151,31 +191,21 @@ const DownloadPopup = ({ isOpen, onClose }) => {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 mb-4">
+            <div className="w-16 h-16 mb-2">
               <img src={LION_LOGO} alt="SAAH Logo" className="w-full h-full object-contain" />
             </div>
 
-            <SectionLabel>Bientôt Disponible</SectionLabel>
+            <SectionLabel>Lancement Officiel</SectionLabel>
             
-            <h3 className="text-2xl font-bold text-onyx mb-2 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+            <h3 className="text-2xl font-bold text-onyx mb-1 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               L'excellence se <span className="italic text-gold">prépare.</span>
             </h3>
             
-            <p className="text-text-secondary text-[13px] font-light leading-snug mb-5 max-w-[240px]">
-              Lancement officiel à venir.
+            <p className="text-text-secondary text-[12px] font-light leading-snug mb-4 max-w-[240px]">
+              Rejoignez-nous pour le grand départ.
             </p>
 
-            <div className="flex gap-1.5 justify-center mb-6">
-              {[
-                { val: "10 Apr", label: "Date" },
-                { val: "2026", label: "Year" }
-              ].map((item, i) => (
-                <div key={i} className={`rounded-xl px-4 py-1.5 border ${i === 0 ? 'bg-gold-tint border-gold/20' : 'bg-pearl border-border-light'}`}>
-                  <div className={`text-sm font-bold ${i === 0 ? 'text-gold' : 'text-onyx'}`}>{item.val}</div>
-                  <div className="text-[7px] uppercase tracking-widest text-text-muted font-bold">{item.label}</div>
-                </div>
-              ))}
-            </div>
+            <Countdown />
 
             <button 
               onClick={onClose} 
