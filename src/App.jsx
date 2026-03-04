@@ -201,7 +201,11 @@ const DownloadPopup = ({ isOpen, onClose }) => {
               L'excellence se <span className="italic text-gold">prépare.</span>
             </h3>
 
-            <div className="w-full bg-pearl/50 rounded-2xl p-4 border border-border-light mt-2 mb-4">
+            <p className="text-text-secondary text-[12px] font-light leading-snug mb-4 max-w-[260px]">
+              Nous peaufinons chaque détail pour que votre expérience SAAH soit à la hauteur de vos exigences les plus élevées.
+            </p>
+
+            <div className="w-full bg-pearl/50 rounded-2xl p-4 border border-border-light mt-0 mb-4">
               <div className="text-lg font-black text-gold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>10 AVRIL 2026</div>
               <div className="w-full h-px bg-border-light mb-3" />
               <Countdown />
