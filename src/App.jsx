@@ -159,16 +159,16 @@ const Countdown = () => {
   }, []);
 
   return (
-    <div className="flex gap-1 justify-center mb-6">
+    <div className="flex gap-1 justify-center">
       {[
         { val: timeLeft.days, label: "Jrs" },
         { val: timeLeft.hours, label: "Hrs" },
         { val: timeLeft.mins, label: "Min" },
         { val: timeLeft.secs, label: "Sec" }
       ].map((item, i) => (
-        <div key={i} className={`rounded-xl px-2.5 py-1.5 border min-w-[54px] ${i === 0 ? 'bg-gold-tint border-gold/20' : 'bg-pearl border-border-light'}`}>
-          <div className={`text-base font-bold leading-none ${i === 0 ? 'text-gold' : 'text-onyx'}`}>{String(item.val).padStart(2, '0')}</div>
-          <div className="text-[7px] uppercase tracking-widest text-text-muted font-bold mt-1">{item.label}</div>
+        <div key={i} className="min-w-[42px] text-center">
+          <div className="text-[13px] font-bold text-onyx leading-none">{String(item.val).padStart(2, '0')}</div>
+          <div className="text-[7px] uppercase tracking-widest text-text-muted mt-0.5">{item.label}</div>
         </div>
       ))}
     </div>
@@ -182,8 +182,8 @@ const DownloadPopup = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-onyx/40 backdrop-blur-xl animate-in fade-in duration-500" onClick={onClose} />
       
-      <Reveal direction="up" className="relative w-full max-w-sm bg-white/95 backdrop-blur-2xl rounded-[2rem] p-1 shadow-2xl border border-white overflow-hidden">
-        <div className="relative bg-white rounded-[1.8rem] p-5 md:p-6 border border-border-light overflow-hidden text-center">
+      <Reveal direction="up" className="relative w-full max-w-[340px] bg-white/95 backdrop-blur-2xl rounded-[2rem] p-1 shadow-2xl border border-white overflow-hidden">
+        <div className="relative bg-white rounded-[1.8rem] p-5 border border-border-light overflow-hidden text-center">
           <div className="absolute top-0 right-0 p-3">
             <button onClick={onClose} className="p-1.5 hover:bg-pearl rounded-full transition-all group">
               <X className="w-4 h-4 text-text-muted" />
@@ -191,25 +191,25 @@ const DownloadPopup = ({ isOpen, onClose }) => {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 mb-2">
+            <div className="w-14 h-14 mb-2">
               <img src={LION_LOGO} alt="SAAH Logo" className="w-full h-full object-contain" />
             </div>
 
             <SectionLabel>Lancement Officiel</SectionLabel>
             
-            <h3 className="text-2xl font-bold text-onyx mb-1 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+            <h3 className="text-xl font-bold text-onyx mb-1 tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               L'excellence se <span className="italic text-gold">prépare.</span>
             </h3>
-            
-            <p className="text-text-secondary text-[12px] font-light leading-snug mb-4 max-w-[240px]">
-              Rejoignez-nous pour le grand départ.
-            </p>
 
-            <Countdown />
+            <div className="w-full bg-pearl/50 rounded-2xl p-4 border border-border-light mt-2 mb-4">
+              <div className="text-lg font-black text-gold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>10 AVRIL 2026</div>
+              <div className="w-full h-px bg-border-light mb-3" />
+              <Countdown />
+            </div>
 
             <button 
               onClick={onClose} 
-              className="w-full btn-primary py-2.5 rounded-lg text-[11px] font-bold tracking-widest mb-3"
+              className="w-full btn-primary py-2.5 rounded-lg text-[11px] font-bold tracking-widest mb-2"
             >
               C'est noté
             </button>
