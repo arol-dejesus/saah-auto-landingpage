@@ -5,7 +5,7 @@ import {
   Award, Eye, Phone, Diamond
 } from 'lucide-react';
 
-const LION_LOGO = "/src/assets/logo.png";
+const LION_LOGO = "/logo.png";
 const IMG_SHOWROOM = "/showroom_background.png";
 const IMG_CAR_1 = "/hero_car.png";
 const IMG_CAR_2 = "/porsche_911.png";
